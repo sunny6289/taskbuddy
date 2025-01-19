@@ -8,7 +8,7 @@ import {
   showBoardView,
   showListView,
 } from "../features/slice/TaskView/taskView";
-import {signOutAuthUser } from "../features/Firebase/firebaseConfig";
+// import {signOutAuthUser } from "../features/Firebase/firebaseConfig";
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ const Header = () => {
     (state) => state.taskView.isBoardViewOpen
   );
   const handleLogout = () => {
-    signOutAuthUser();
+    // signOutAuthUser();
     console.log("Logout clicked!");
   };
 

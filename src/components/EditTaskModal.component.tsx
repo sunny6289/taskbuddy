@@ -21,6 +21,7 @@ import { useAppDispatch, useAppSelector } from "../features/app/reduxHooks";
 import { closeEditTaskModal } from "../features/slice/ShowModal/showModal";
 import { editTask, resetTaskToEdit } from "../features/slice/Task/task";
 import { EditTaskModalProps } from "../constants/PropData/propData";
+import { UploadedFile } from "../features/StateType/stateType";
 
 const style = {
   position: "absolute",
@@ -39,7 +40,6 @@ const EditTaskModal = ({isOpen}: EditTaskModalProps) => {
     const dispatch = useAppDispatch();
     const [taskToEdit,setTaskToEdit] = useState(useAppSelector(state=> state.task.taskToEdit))
     console.log(taskToEdit);
-
 
   const [hasAllRequiredData, setHasAllRequiredData] = useState(true);
   const [charCount, setCharCount] = useState(0);
@@ -65,6 +65,21 @@ const EditTaskModal = ({isOpen}: EditTaskModalProps) => {
   if (!editor) {
     return null;
   }
+
+  const handleFileUpload = (files: FileList | null) => {
+      if (!files) return;
+  
+      const newFiles: UploadedFile[] = Array.from(files).map((file) => ({
+        file,
+        preview: URL.createObjectURL(file),
+      }));
+  
+      setTaskToEdit({...taskToEdit, taskFiles: [...taskToEdit.taskFiles, ...newFiles]});
+    };
+
+  const removeFile = (index: number) => {
+    setTaskToEdit({...taskToEdit, taskFiles: taskToEdit.taskFiles.filter((_ , idx)=> idx!== index)})
+  };
 
   const handleCancelTask = () => {
     // Remove all data here
@@ -292,12 +307,50 @@ const EditTaskModal = ({isOpen}: EditTaskModalProps) => {
               </div>
               <div className="flex flex-col gap-2">
                 <h3>Attachment</h3>
-                <p className="text-sm border border-[#00000021] bg-[#F1F1F15C] p-3 rounded-xl text-center">
-                  Drop your files here or{" "}
-                  <span className="text-blue-500 underline cursor-pointer">
-                    Upload
-                  </span>
-                </p>
+                <div
+                className="text-sm border border-[#00000021] bg-[#F1F1F15C] p-3 rounded-xl text-center"
+                onDragOver={(e) => e.preventDefault()} // Prevent default drag behavior
+                onDrop={(e) => {
+                  e.preventDefault();
+                  handleFileUpload(e.dataTransfer.files); // Handle dropped files
+                }}
+              >
+                Drop your files here or{" "}
+                <label
+                  htmlFor="file-upload"
+                  className="text-blue-500 underline cursor-pointer"
+                >
+                  Upload
+                </label>
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden" // Hide the default file input
+                  onChange={(e) => handleFileUpload(e.target.files)}
+                />
+              </div>
+                <div className="flex flex-wrap gap-3 mt-3">
+                {taskToEdit.taskFiles.map((item, index) => (
+                  <div
+                    key={index}
+                    className="relative w-48 h-48 bg-[#f1f1f1] rounded-lg  flex items-center justify-center"
+                  >
+                    <img
+                      src={item.preview}
+                      alt={`preview-${index}`}
+                      className="object-cover w-full h-full rounded-lg"
+                    />
+                    {/* <button
+                      
+                    > */}
+                      <IoCloseOutline size={25} fontWeight={700} className="absolute z-10 -top-2 -right-2 bg-[#f1f1f1] rounded-full p-1"
+                      onClick={() => removeFile(index)}/>
+                    {/* </button> */}
+                  </div>
+                ))}
+              </div>
               </div>
               <div className="min-w-full min-h-32"></div>
             </div>
