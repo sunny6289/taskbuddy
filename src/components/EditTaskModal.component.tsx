@@ -39,7 +39,7 @@ const style = {
 const EditTaskModal = ({isOpen}: EditTaskModalProps) => {
     const dispatch = useAppDispatch();
     const [taskToEdit,setTaskToEdit] = useState(useAppSelector(state=> state.task.taskToEdit))
-    console.log(taskToEdit);
+    
 
   const [hasAllRequiredData, setHasAllRequiredData] = useState(true);
   const [charCount, setCharCount] = useState(0);
@@ -82,14 +82,11 @@ const EditTaskModal = ({isOpen}: EditTaskModalProps) => {
   };
 
   const handleCancelTask = () => {
-    // Remove all data here
-    console.log("task cancel from modal");
     handleClose();
   };
   const handleUpdateTask = () => {
     // Update data to Firebase DB & Redux here
     dispatch(editTask(taskToEdit));
-    console.log(taskToEdit);
     handleClose();
   };
   const handleClose = () => {

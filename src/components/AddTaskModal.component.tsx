@@ -117,7 +117,7 @@ const removeFile = (index: number) => {
       taskDueOn: "",
       taskFiles: []
     });
-    console.log("task cancel from modal");
+    
     handleClose();
   };
   const handleCreateTask = () => {
@@ -125,10 +125,10 @@ const removeFile = (index: number) => {
     // Store images in Cloudanary get the array of URLs store it
     // inside taskData.taskFiles, then put the whole taskData in Firebase DB
     // Then store the taskData inside the Redux state, use the 
-    console.log("UPloaded files: ",uploadedFiles);
+    
     setTaskData({...taskData, taskFiles: uploadedFiles})
     dispatch(addTask({...taskData, taskFiles: uploadedFiles}));
-    console.log(taskData);
+    
     handleClose();
   };
   const handleClose = () => {

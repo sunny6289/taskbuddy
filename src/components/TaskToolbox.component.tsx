@@ -20,17 +20,15 @@ const TaskToolbox = () => {
     filterCategory: "",
     filterDate: "",
   });
-console.log(filterContent);
+
   const handleSearchTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilterContent({ ...filterContent, filterText: e.target.value });
   };
   const handleAddTask = () => {
-    console.log("Add task clicked");
     dispatch(openAddTaskModal());
   };
 
   useEffect(() => {
-    console.log("inside useEffect");
     if(filterContent.filterCategory === "" && filterContent.filterDate === "" && filterContent.filterText === ""){
       dispatch(setIsFiltered(false));
     }else{
@@ -42,7 +40,6 @@ console.log(filterContent);
       (filterContent.filterDate === "" || task.taskDueOn.toLowerCase() === filterContent.filterDate.toLowerCase()) &&
       (filterContent.filterText === "" || task.taskTitle.toLowerCase().includes(filterContent.filterText.toLowerCase()))
   );
-    console.log(filteredTasks);
     dispatch(filterTask(filteredTasks));
   }, [filterContent, allTasks]);
   return (

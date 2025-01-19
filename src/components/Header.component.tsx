@@ -20,7 +20,7 @@ const Header = () => {
   );
   const handleLogout = () => {
     // signOutAuthUser();
-    console.log("Logout clicked!");
+    
   };
 
   const handleOpenListView = () => {

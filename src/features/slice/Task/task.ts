@@ -23,7 +23,6 @@ export const taskSlice = createSlice({
   reducers: {
     addTask: (state, action: PayloadAction<Task>) => {
       state.tasks = [...state.tasks, action.payload];
-      console.log("after upload",state.tasks);
     },
     deleteTask: (state, action: PayloadAction<string>) => {
       state.tasks = state.tasks.filter(
