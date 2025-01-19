@@ -7,6 +7,9 @@ export type DropdownProps = {
     value?: string,
     style?: React.CSSProperties,
     label: string,
+    className?: string,
+    labelClassName?:string,
+    menuItemClassName?:string,
     options: string[],
     defaultValue?: string,
     handleChange: (data: string)=> void

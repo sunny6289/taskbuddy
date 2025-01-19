@@ -14,7 +14,7 @@ const MultiSelectUpdate = ({totalSelectedTask}:MultiSelectUpdateProps) => {
         selectedStatus.length > 0 && dispatch(updateSelectedTaskStatus(selectedStatus))
     }
   return (
-    <div className="fixed bottom-5 left-1/2 -translate-x-1/2 min-w-[450px] bg-black p-3 rounded-xl text-white flex justify-between items-center gap-2">
+    <div id="multi-select-component" className="fixed bottom-5 left-1/2 -translate-x-1/2 min-w-[450px] bg-black p-3 rounded-xl text-white flex justify-between items-center gap-2">
       <div className="border border-white rounded-xl flex items-center gap-2 p-2 text-white">
         <span className="text-md">{totalSelectedTask} Tasks Selected</span>
         <IoCloseOutline size={25} fontWeight={500} className="cursor-pointer" onClick={()=>dispatch(deselectAllTask())}/>
@@ -23,6 +23,8 @@ const MultiSelectUpdate = ({totalSelectedTask}:MultiSelectUpdateProps) => {
       <Dropdown
         label="Status"
         handleChange={(status) => setSelectedStatus(status)}
+        className="!border-2 !border-white !text-white"
+        labelClassName="!text-slate-500"
         style={{
           minWidth: 120,
           borderRadius: "500px",

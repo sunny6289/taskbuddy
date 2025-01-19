@@ -9,6 +9,8 @@ const Dropdown = ({
   options,
   value,
   handleChange,
+  className,
+  labelClassName,
   defaultValue,
   style,
 }: DropdownProps) => {
@@ -19,7 +21,7 @@ const Dropdown = ({
 
   return (
     <FormControl size="small" >
-      <InputLabel id="dropdown-label">{label}</InputLabel>
+      <InputLabel className={labelClassName} id="dropdown-label">{label}</InputLabel>
       <Select
         labelId="dropdown-label"
         id="dropdown"
@@ -27,6 +29,7 @@ const Dropdown = ({
         label={label}
         defaultValue={defaultValue}
         sx={style}
+        className={className}
         onChange={handleDropdownChange}
       >
         <MenuItem value="">

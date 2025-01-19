@@ -85,7 +85,7 @@ const TaskAccordian = ({
       <div
         className={`task-list w-full min-h-40 bg-[#F1F1F1] rounded-b-xl flex flex-col ${
           !showTaskList && "hidden"
-        } transition-all divide-y-1 divide-[#0000001A] overflow-hidden`}
+        } transition-all divide-y-1 divide-[#0000001A] `}
       >
         {taskListTitle === "Todo" && (
           <div className="w-full flex flex-col px-3 gap-2 py-[10px] font-semibold ">

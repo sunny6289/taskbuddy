@@ -9,3 +9,20 @@ export const useFilteredTasks = (tasks:Task[])=>{
     return {todoTasks, inProgressTasks, completedTasks};
 
 }
+
+ 
+ export function sortTasksByDate(tasks: Task[], order: 'asc' | 'desc'): Task[] {
+    return tasks.sort((a, b) => {
+
+      const dateA = new Date(a.taskDueOn);
+      const dateB = new Date(b.taskDueOn);
+      
+      if (order === 'asc') {
+        return dateA.getTime() - dateB.getTime();
+      } else {
+        return dateB.getTime() - dateA.getTime();
+      }
+    });
+  }
+
+

@@ -1,15 +1,40 @@
 import { FaSort } from "react-icons/fa";
+import { FaSortUp } from "react-icons/fa";
+import { FaSortDown } from "react-icons/fa6";
 import TaskAccordian from "./TaskAccordian.component";
 import { useAppSelector } from "../features/app/reduxHooks";
-import { useFilteredTasks } from "../hooks/hooks";
+import { sortTasksByDate, useFilteredTasks } from "../hooks/hooks";
 import { TfiMoreAlt } from "react-icons/tfi";
 import TaskNotFound from "./TaskNotFound.component";
+import { useState } from "react";
 
 const ListViewTask = () => {
     const tasks = useAppSelector(state=> state.task.filteredTasks)
     const isTasksFiltered = useAppSelector(state=> state.task.isFiltered)
-    const {todoTasks, inProgressTasks, completedTasks} = useFilteredTasks(tasks);
-console.log("task form list view", tasks);
+    let {todoTasks, inProgressTasks, completedTasks} = useFilteredTasks(tasks);
+    const [sortOrder, setSortOrder] = useState("normal");
+    
+    const onDateSort = ()=>{
+        if(sortOrder === "normal"){
+            todoTasks = sortTasksByDate(todoTasks, "asc");
+            inProgressTasks = sortTasksByDate(inProgressTasks, "asc");
+            completedTasks = sortTasksByDate(completedTasks, "asc")
+            setSortOrder("asc")
+        }
+        if(sortOrder === "asc"){
+            todoTasks = sortTasksByDate(todoTasks, "desc");
+            inProgressTasks = sortTasksByDate(inProgressTasks, "desc");
+            completedTasks = sortTasksByDate(completedTasks, "desc");
+            setSortOrder("desc")
+        }
+        if(sortOrder === "desc"){
+            todoTasks = sortTasksByDate(todoTasks, "asc");
+            inProgressTasks = sortTasksByDate(inProgressTasks, "asc");
+            completedTasks = sortTasksByDate(completedTasks, "asc")
+            setSortOrder("asc")
+        }
+    }
+
     return (
         <div className="w-full">
             {
@@ -18,7 +43,7 @@ console.log("task form list view", tasks);
                 <>
                 <div className="hidden px-4 md:flex text-[#00000099] text-sm font-semibold items-center justify-between">
                     <div className="flex-1">Task name</div>
-                    <div className="flex items-center gap-1 flex-1"><span>Due on</span><FaSort/></div>
+                    <div className="flex items-center gap-1 flex-1" onClick={onDateSort}><span>Due on</span>{sortOrder === "normal" ? <FaSort/> : sortOrder === "asc" ? <FaSortUp/> : <FaSortDown/>}</div>
                     <div className="flex-1">Task status</div>
                     <div className="flex-1">Task category</div>
                     <TfiMoreAlt className="mx-3 opacity-0"/>

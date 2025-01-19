@@ -20,6 +20,17 @@
     padding: 8px !important;
     font-size: '14px' !important;
 }
+
+
+/* #multi-select-component>.css-si86to-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+  border: 2px solid white !important;
+}
+#dropdown{
+  display: hidden !important;
+}
+
+ */
+
 .task{
     padding: 8px 4px;
 }
