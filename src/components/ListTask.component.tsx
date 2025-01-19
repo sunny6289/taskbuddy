@@ -11,21 +11,26 @@ import { useAppDispatch, useAppSelector } from "../features/app/reduxHooks";
 import {
   deleteTask,
   deselectTask,
+  editTask,
   selectTask,
   setTaskToEdit,
 } from "../features/slice/Task/task";
 import { openEditTaskModal } from "../features/slice/ShowModal/showModal";
-// import Dropdown from "./Dropdown.component";
+
 
 const ListTask = ({ taskData }: ListTaskProps) => {
   const [checked, setChecked] = useState(false);
   const [moreSelect, setMoreSelect] = useState(false);
+  const [openStatusSelect, setOpenStatusSelect] = useState(false);
   const dispatch = useAppDispatch();
   const allSelectedTask = useAppSelector((state) => state.task.selectedTasks);
   const selectCurrentTask = () => {
     dispatch(selectTask(taskData));
   };
 
+  // const updateStatus = ()=>{
+
+  // }
   const deselectCurrentTask = () => {
     dispatch(deselectTask(taskData.taskId));
   };
@@ -72,10 +77,33 @@ const ListTask = ({ taskData }: ListTaskProps) => {
             : taskData.taskDueOn}
         </p>
       </div>
-      <div className="relative flex items-center gap-1 flex-1">
+      <div className="relative flex items-center gap-1 flex-1" onClick={()=>setOpenStatusSelect(!openStatusSelect)}>
         <p className="uppercase bg-slate-300 px-2 py-0.5 rounded-md cursor-default">
           {taskData.taskStatus}
         </p>
+        {
+          openStatusSelect ?
+          <div className="absolute z-40 top-10 text-md overflow-hidden rounded-xl bg-white shadow-md shadow-[#7B19841F]">
+            <div
+            className={` px-4 py-3 cursor-pointer font-normal hover:bg-slate-100 ${taskData.taskStatus === "todo" && "font-semibold"}`}
+            onClick={()=>dispatch(editTask({...taskData, taskStatus:"todo"}))}
+          >
+            <span>TO-DO</span>
+          </div>
+          <div
+            className={` px-4 py-3 cursor-pointer font-normal hover:bg-slate-100 ${taskData.taskStatus === "in-progress" && "font-semibold"}`}
+            onClick={()=>dispatch(editTask({...taskData, taskStatus:"in-progress"}))}
+          >
+            <span>IN-PROGRESS</span>
+          </div>
+          <div
+            className={` px-4 py-3 cursor-pointer font-normal hover:bg-slate-100 ${taskData.taskStatus === "completed" && "font-semibold"}`}
+            onClick={()=>dispatch(editTask({...taskData, taskStatus:"completed"}))}
+          >
+            <span>COMPLETED</span>
+          </div>
+        </div> : null
+        }
       </div>
       <div className="flex items-center gap-1 flex-1 capitalize">
         <p>{taskData.taskCategory}</p>
