@@ -8,7 +8,7 @@ import {
   showBoardView,
   showListView,
 } from "../features/slice/TaskView/taskView";
-import { signInAuthUserWithGooglePopUp, signOutAuthUser } from "../features/Firebase/firebaseConfig";
+import {signOutAuthUser } from "../features/Firebase/firebaseConfig";
 
 const Header = () => {
   const dispatch = useAppDispatch();
