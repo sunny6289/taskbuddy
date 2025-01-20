@@ -3,7 +3,7 @@ import { FaSortUp } from "react-icons/fa";
 import { FaSortDown } from "react-icons/fa6";
 import TaskAccordian from "./TaskAccordian.component";
 import { useAppSelector } from "../features/app/reduxHooks";
-import { sortTasksByDate, useFilteredTasks } from "../hooks/hooks";
+import { useFilteredTasks } from "../hooks/hooks";
 import { TfiMoreAlt } from "react-icons/tfi";
 import TaskNotFound from "./TaskNotFound.component";
 import { useState } from "react";
@@ -16,21 +16,15 @@ const ListViewTask = () => {
     
     const onDateSort = ()=>{
         if(sortOrder === "normal"){
-            todoTasks = sortTasksByDate(todoTasks, "asc");
-            inProgressTasks = sortTasksByDate(inProgressTasks, "asc");
-            completedTasks = sortTasksByDate(completedTasks, "asc")
+          // date sort function
             setSortOrder("asc")
         }
         if(sortOrder === "asc"){
-            todoTasks = sortTasksByDate(todoTasks, "desc");
-            inProgressTasks = sortTasksByDate(inProgressTasks, "desc");
-            completedTasks = sortTasksByDate(completedTasks, "desc");
+         // date sort function
             setSortOrder("desc")
         }
         if(sortOrder === "desc"){
-            todoTasks = sortTasksByDate(todoTasks, "asc");
-            inProgressTasks = sortTasksByDate(inProgressTasks, "asc");
-            completedTasks = sortTasksByDate(completedTasks, "asc")
+            // date sort function
             setSortOrder("asc")
         }
     }
