@@ -12,11 +12,11 @@ const HomePage = () => {
     const isEditTaskModalOpen = useAppSelector(state => state.modal.isEditTaskModalOpen)
     const selectedTasks = useAppSelector(state => state.task.selectedTasks)
     return (
-        <div className="h-full w-full flex flex-col gap-3">
+        <div className="h-full w-full flex flex-col gap-3 md:py-10 md:px-8">
             {
                 isEditTaskModalOpen && <EditTaskModal isOpen={isEditTaskModalOpen}/> 
             }
-            {/*Will be removed after test */}
+
             {
                 isAddTaskModalOpen && <AddTaskModal isOpen={isAddTaskModalOpen}/>
             }
